@@ -2,11 +2,11 @@
 [Reference] https://github.com/vectornguyen76/face-recognition.git
 
 
-# 환경
+# 기본 환경
 * MacOS
 * conda, Homebrew 설치, Jupyter notebook 가능
 
-# 테스트 전 진행
+# 환경 구축
 https://fringe-singer-dff.notion.site/AI-Face-Recognition-Code-Test-11cb5630d4f7479296606d8a4x6e1e18f
 
 
