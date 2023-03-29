@@ -7,7 +7,7 @@
 * conda, Homebrew 설치, Jupyter notebook 가능
 
 # 환경 구축
-https://fringe-singer-dff.notion.site/AI-Face-Recognition-Code-Test-11cb5630d4f7479296606d8a4x6e1e18f
+https://fringe-singer-dff.notion.site/AI-Face-Recognition-11cb5630d4f7479296606d8a46e1e18f
 
 
 # 테스트
