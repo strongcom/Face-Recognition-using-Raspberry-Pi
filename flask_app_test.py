@@ -49,7 +49,7 @@ def img():
     return "ok"
 
 def send_result_to_external_api(user_id):
-    url = "http://strongsumin.milk717.com/api/push/userId"
+    url = ""
     data = {"userId": user_id}
     headers = {"Content-Type": "application/json"}
     try:
