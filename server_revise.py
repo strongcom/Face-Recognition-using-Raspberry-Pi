@@ -195,7 +195,7 @@ print('Socket created')
 
 # 서버의 아이피와 포트번호 지정
 HOST = '192.168.1.108'
-PORT = 13330
+PORT = 13000
 s.bind((HOST, PORT))
 print('Socket bind complete')
 # 클라이언트의 접속을 기다린다. (클라이언트 연결을 10개까지 받는다)
