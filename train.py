@@ -2,6 +2,7 @@ import argparse
 
 #pytorch
 from concurrent.futures import thread
+import subprocess
 from xmlrpc.client import Boolean
 from sqlalchemy import null
 import torch
@@ -138,8 +139,24 @@ def training(full_training_dir, additional_training_dir,
         person_face_path = os.path.join(faces_save_dir, name_person)
         os.makedirs(person_face_path, exist_ok=True)
         
+        # Read existing features (if exists)
+        features = read_features(features_save_dir) 
+        if features == null or is_add_user== False:
+            processed_files = []
+        else:        
+            # Read features
+            old_images_name, old_images_emb = features  
+            
+            # Get processed files
+            processed_files = list(old_images_name)
+        
+        # Process new files
         for image_name in os.listdir(person_image_path):
             if image_name.endswith(("png", 'jpg', 'jpeg')):
+                # Skip already processed files
+                if image_name in processed_files:
+                    continue
+                
                 image_path = person_image_path + f"/{image_name}"
                 input_image = cv2.imread(image_path)  # BGR 
 
@@ -171,8 +188,9 @@ def training(full_training_dir, additional_training_dir,
     images_emb = np.array(images_emb)
     images_name = np.array(images_name)
     
+    # Merge with existing features (if exists)
     features = read_features(features_save_dir) 
-    if features == null or is_add_user== False:
+    if features == null or is_add_user == False:
         pass
     else:        
         # Read features
@@ -192,8 +210,22 @@ def training(full_training_dir, additional_training_dir,
     if is_add_user == True:
         for sub_dir in os.listdir(additional_training_dir):
             dir_to_move = os.path.join(additional_training_dir, sub_dir)
-            shutil.move(dir_to_move, full_training_dir, copy_function = shutil.copytree)
-    
+            dest_dir = os.path.join(full_training_dir, sub_dir)
+            if os.path.exists(dest_dir):
+
+                # Copy existing files
+                for file_name in os.listdir(dir_to_move):
+                    src_file_path = os.path.join(dir_to_move, file_name)
+                    dest_file_path = os.path.join(dest_dir, file_name)
+                    shutil.copy2(src_file_path, dest_file_path)
+                    os.remove(src_file_path)
+
+                # Remove additional training directory
+                shutil.rmtree(dir_to_move)
+            else:
+                shutil.move(dir_to_move, dest_dir)
+
+
 def parse_opt():
     parser = argparse.ArgumentParser()
     parser.add_argument('--full-training-dir', type=str, default='./dataset/full-training-datasets/', help='dir folder full training')
@@ -206,10 +238,15 @@ def parse_opt():
     return opt
 
 def main(opt):
-    training(**vars(opt))
+    output1 = subprocess.run(["find",".","-name","\"*.DS_Store\"","-type","f","-delete"], capture_output=True)
+    print(output1.stdout.decode())
+    
+    training(full_training_dir=opt.full_training_dir,
+             additional_training_dir=opt.additional_training_dir,
+             faces_save_dir=opt.faces_save_dir,
+             features_save_dir=opt.features_save_dir,
+             is_add_user=opt.is_add_user)
 
 if __name__ == "__main__":
     opt = parse_opt()
     main(opt)
-
-    

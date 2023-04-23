@@ -143,15 +143,12 @@ def main():
             fps_label = "FPS: %.2f" % fps
             cv2.putText(frame, fps_label, (10, 25), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 255), 2)
         
-        
         #Show result
         cv2.imshow("Face Detection", frame)
         
         # Press Q on keyboard to  exit
         if cv2.waitKey(25) & 0xFF == ord('q'):
             break  
-    
-    video.release()
     cap.release()
     cv2.destroyAllWindows()
     cv2.waitKey(0)
