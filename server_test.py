@@ -16,7 +16,6 @@ import socket
 import cv2
 import numpy as np
 import sys
-from os.path import exists
 
 sys.path.insert(0, "yolov5_face")
 from models.experimental import attempt_load

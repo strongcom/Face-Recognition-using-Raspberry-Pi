@@ -1,19 +1,15 @@
 import threading
 import time
 import os
-import shutil
 import json
 import subprocess
 import requests
 from flask import Flask, jsonify, request
 from PIL import Image
-from werkzeug.utils import secure_filename
-import server_revise
-from server_revise import server
+import server_test
 import os
 from flask import Flask, request
 from PIL import Image
-import shutil
 import subprocess
 
 app = Flask(__name__)
@@ -98,7 +94,7 @@ if __name__ == "__main__":
 
     time.sleep(3)
 
-    server_thread = threading.Thread(target=server_revise.server)
+    server_thread = threading.Thread(target=server_test.server)
     server_thread.start()
 
     try:
