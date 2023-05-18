@@ -12,7 +12,7 @@ https://fringe-singer-dff.notion.site/AI-Face-Recognition-11cb5630d4f7479296606d
 
 # 테스트
 * 아래 링크에서 각각 폴더에 있는 파일 다운로드 후 지정 파일로 이동
-    - https://drive.google.com/drive/folders/1XT-WlFuI_nNbjd5KjXCYnGFSZ8HDsnul?usp=share_link
+    - https://drive.google.com/drive/folders/1QBnN_as3ShQ_TRbTitFleP_lOEoXk8oB?usp=share_link
     - resnet -> insightface
     - yolov5 -> yolov5_face 
 
