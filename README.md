@@ -25,7 +25,6 @@
     - resnet100_backbone.pth -> insightface
     - yolov5n-0.5.pt -> yolov5_face 
 <br><br>
->>>>>>> 60efafb (Update: README.md, test code 4개)
 
 * 라즈베리파이 연결한 후 flask_app_test.py를 실행
 
