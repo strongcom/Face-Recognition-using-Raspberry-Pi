@@ -1,6 +1,7 @@
 # Face Recognition 
 [Reference] https://github.com/vectornguyen76/face-recognition.git
 
+* 이전에는 로컬에서 라즈베리파이 카메라와 서버를 연결하는 방식이었으나, 현재는 라즈베리파이에서 외부 네트워크에 있는 서버로 값을 전송해주는 방식으로 변경
 
 # 기본 환경
 * MacOS
@@ -14,7 +15,6 @@
 
 
 # 테스트
-<<<<<<< HEAD
 * 아래 링크에서 각각 폴더에 있는 파일 다운로드 후 지정 파일로 이동
     - https://drive.google.com/drive/folders/1QBnN_as3ShQ_TRbTitFleP_lOEoXk8oB?usp=share_link
     - resnet -> insightface
@@ -32,6 +32,3 @@
 ```
 find . -name "*.DS_Store" -type f -delete
 ```
-
-
-* 이전에는 로컬에서 라즈베리파이 카메라와 서버를 연결하는 방식이었으나, 현재는 라즈베리파이에서 외부 네트워크에 있는 서버로 값을 전송해주는 방식으로 변경
