@@ -1,20 +1,14 @@
-# -*- coding: utf8 -*-
 import cv2
 import socket
 import numpy as np
 from os.path import exists
 import os
-from os.path import exists
 
 ## TCP 사용
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-
 ## server ip, port
-#s.connect(('192.168.1.108', 13000))
-#HOST = '10.93.100.172'
-#HOST = '192.168.0.28'
-HOST='210.111.190.189'
-PORT = 13330
+HOST = '~'
+PORT = 13000
 s.connect((HOST, PORT))
 print("Connection to server successful")
 
@@ -55,7 +49,5 @@ while True:
     #서버에 데이터 전송
     #(str(len(stringData))).encode().ljust(16)
     s.sendall((str(len(stringData))).encode().ljust(16) + stringData)
-    
+
 cam.release()
-
-

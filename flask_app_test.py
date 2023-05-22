@@ -1,12 +1,15 @@
 import threading
 import time
 import os
+import shutil
 import json
 import subprocess
 import requests
 from flask import Flask, jsonify, request
 from PIL import Image
+from werkzeug.utils import secure_filename
 import server_test
+from server_test import server
 import os
 from flask import Flask, request
 from PIL import Image
@@ -61,11 +64,13 @@ def img():
 
     return "ok"
 
+last_request_times = {}
+
 def send_result_to_external_api(user_id, time):
-    url = "http://strongsumin.milk717.com/api/push/userId"
+    url = "~"
     data = {
-        "userId": user_id,
-        "time": time
+        "userName": user_id,
+        "today": time
     }
     headers = {"Content-Type": "application/json"}
     try:
@@ -79,11 +84,22 @@ def send_result_to_external_api(user_id, time):
 
 @app.route("/image/result", methods=["POST"])
 def result():
-    data = request.get_json()
-    print("userId: "+ data['name'] + " / time: " + data["time"])
-    send_result_to_external_api(data["name"], data["time"])
+    global last_request_times
 
-    return jsonify({"name": data["name"], "time": data["time"]}), 200
+    data = request.get_json()
+    print("userName: "+ data['userName'] + " / today: " + data["today"])  # "today" 키 사용
+
+    current_time = time.time()
+    time_since_last_request = current_time - last_request_times.get(data['userName'], 0)
+
+    # 마지막 요청 이후 30초가 지났거나, 해당 user_id의 마지막 요청 시간이 없으면 요청을 보내고 시간을 업데이트
+    if time_since_last_request >= 30 or last_request_times.get(data['userName']) is None:
+        send_result_to_external_api(data["userName"], data["today"])  # "today" 키 사용
+        last_request_times[data['userName']] = current_time
+    else:
+        print("** User already recognized within the past 30 seconds **")
+
+    return jsonify({"name": data["userName"], "today": data["today"]}), 200
 
 def run_flask_app():
     app.run(host="0.0.0.0", port=13330, debug=True, use_reloader=False)

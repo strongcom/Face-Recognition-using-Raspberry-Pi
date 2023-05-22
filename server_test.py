@@ -16,6 +16,7 @@ import socket
 import cv2
 import numpy as np
 import sys
+from os.path import exists
 
 sys.path.insert(0, "yolov5_face")
 from models.experimental import attempt_load
@@ -171,9 +172,9 @@ def recvall(sock, count):
 def send_result_to_flask_server(name, score, time):
     url = 'http://localhost:13330/image/result'
     data = {
-        'name': name,
+        'userName': name,
         'score': float(score),  # score를 float() 함수를 사용하여 float 타입으로 변경
-        'time': time
+        'today': time
     }
     headers = {
         'Content-Type': 'application/json'
@@ -188,28 +189,30 @@ def send_result_to_flask_server(name, score, time):
         print(f"Error occurred: {err}")
 
 
-# TCP 사용
+# 서버의 아이피와 포트번호 지정
+#HOST = ''
+HOST = ''
+PORT = 13000
+
+ # TCP 사용
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 print('Socket created')
 
-# 서버의 아이피와 포트번호 지정
-HOST = '192.168.1.108'
-PORT = 13000
 s.bind((HOST, PORT))
 print('Socket bind complete')
+
 # 클라이언트의 접속을 기다린다. (클라이언트 연결을 10개까지 받는다)
 s.listen(10)
 print('Socket now listening')
-
-# 연결, conn에는 소켓 객체, addr은 소켓에 바인드 된 주소
-conn, addr = s.accept()
 
 isThread = True
 score = 0
 name = null
 
-# 원본 코드에서 수정된 부분
-def server():
+def server():    
+    # 연결, conn에는 소켓 객체, addr은 소켓에 바인드 된 주소
+    conn, addr = s.accept()
+
     global isThread, score, name, now_time, recognition_res
     start = time.time_ns()
     frame_count = 0
@@ -251,12 +254,12 @@ def server():
             current_time = time.time()
 
             if name != None:
-                if score < 0.61:
+                if score < 0.51:
                     caption= "UNKNOWN"
                     unknown_cnt += 1
                 else:
                     if name not in last_recognition_times or current_time - last_recognition_times[name] >= 7:
-                        now_time = dt.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                        now_time = dt.datetime.now().strftime('%Y-%m-%dT%H:%M:%S')
                         recognition_res[name] = score, now_time
                         caption = f"{name.split('_')[0]}:{score:.2f}:{now_time}"
                         
