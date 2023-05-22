@@ -17,8 +17,8 @@
 # 테스트
 * 아래 링크에서 각각 폴더에 있는 파일 다운로드 후 지정 파일로 이동
     - https://drive.google.com/drive/folders/1QBnN_as3ShQ_TRbTitFleP_lOEoXk8oB?usp=share_link
-    - resnet -> insightface
-    - yolov5 -> yolov5_face 
+    - resnet100_backbone.pth -> insightface
+    - yolov5n-0.5.pt -> yolov5_face 
 =======
 * 아래 링크에서 파일 다운로드 후 지정 파일로 이동 <br>
     - [model](https://drive.google.com/drive/folders/1QBnN_as3ShQ_TRbTitFleP_lOEoXk8oB?usp=sharing)
