@@ -9,8 +9,8 @@
     ; CMAKE, Dlib 설치 완료, Jupyter notebook 설치 완료
 
 # 환경 구축
-* !(MacOS)[https://fringe-singer-dff.notion.site/AI-Face-Recognition-11cb5630d4f7479296606d8a46e1e18f]
-* !(Windows)[https://fringe-singer-dff.notion.site/AI-Windows-3707e5de34a64c3d82ef844c08787141]
+* [MacOS](https://fringe-singer-dff.notion.site/AI-Face-Recognition-11cb5630d4f7479296606d8a46e1e18f)
+* [Windows](https://fringe-singer-dff.notion.site/AI-Windows-3707e5de34a64c3d82ef844c08787141)
 
 
 # 테스트
